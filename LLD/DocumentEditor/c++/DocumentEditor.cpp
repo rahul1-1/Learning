@@ -130,11 +130,14 @@ public:
 class DocumentEditor {
 private:
     Document* doc;
-    StorageManager* storageManager;
-
+   
 public:
-    DocumentEditor(Document* doc, StorageManager* storageManager)
-        : doc(doc), storageManager(storageManager) {}
+    StorageManager* storageManager = new StorageManager();
+    DocumentEditor(Document* doc) : doc(doc) {}
+
+    void addStorage(StorageService* storage) {
+            storageManager->addStorageService(storage);
+   }
 
     void addText(const string& text) {
         doc->addElement(new TextElement(text));
@@ -155,20 +158,20 @@ public:
     void saveDocument() const {
         storageManager->saveDocument(*doc);
     }
+   
 };
 
 // ---------- Main ----------
 
 int main() {
     Document* doc = new Document();
-    StorageManager* storageManager = new StorageManager();
-
-    storageManager->addStorageService(new FileStorageService());
-    storageManager->addStorageService(new MongoDBStorageService());
-
-    DocumentEditor* editor = new DocumentEditor(doc, storageManager);
-
-    editor->addText("Hello World");
+    
+  
+    DocumentEditor* editor = new DocumentEditor(doc);
+    
+    editor->addStorage(new FileStorageService());
+    editor->addStorage(new MongoDBStorageService());
+    editor->addText("Hello World ");
     editor->addText("Document Editor Example");
     editor->addImage("image.png");
 
@@ -182,7 +185,5 @@ int main() {
 
     delete editor;
     delete doc;
-    delete storageManager;
-
     return 0;
 }
