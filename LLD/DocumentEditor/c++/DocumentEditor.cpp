@@ -83,7 +83,7 @@ public:
 class FileStorageService : public StorageService {
 public:
     void save(const Document& doc) const override {
-        ofstream file("document.txt");
+        ofstream file("document.txt",ios::app); // Open file in append mode 
         if (file.is_open()) {
             file << doc.render();
             file.close();
@@ -130,10 +130,13 @@ public:
 class DocumentEditor {
 private:
     Document* doc;
+    // StorageManager* storageManager;
    
 public:
-    StorageManager* storageManager = new StorageManager();
-    DocumentEditor(Document* doc) : doc(doc) {}
+     StorageManager* storageManager = new StorageManager();
+    DocumentEditor(Document* doc) : doc(doc) {
+       
+    }
 
     void addStorage(StorageService* storage) {
             storageManager->addStorageService(storage);
@@ -164,9 +167,7 @@ public:
 // ---------- Main ----------
 
 int main() {
-    Document* doc = new Document();
-    
-  
+    Document* doc = new Document();  
     DocumentEditor* editor = new DocumentEditor(doc);
     
     editor->addStorage(new FileStorageService());
@@ -183,7 +184,33 @@ int main() {
 
     editor->saveDocument();
 
+
+    cout<<" ------------------------------------------------------------- "<<endl;
+
+
+     Document* doc1 = new Document();
+    
+  
+    DocumentEditor* editor1 = new DocumentEditor(doc1);
+    
+    editor1->addStorage(new FileStorageService());
+    // editor1->addStorage(new MongoDBStorageService());
+    editor1->addText("Hello World New Document");
+    editor1->addText("Document Editor Example");
+    editor1->addImage("New_Document_Image.png");
+
+    cout << "Document Content:\n" << editor1->renderDocument() << endl;
+
+    editor1->removeElement(1); // Remove "Document Editor Example"
+
+    cout << "\nAfter Removal:\n" << editor1->renderDocument() << endl;
+
+    editor1->saveDocument();
+
     delete editor;
     delete doc;
+    delete editor1;
+    delete doc1;
+
     return 0;
 }

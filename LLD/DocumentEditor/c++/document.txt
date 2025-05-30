@@ -1,2 +1,4 @@
 Hello World 
 <img src="image.png" />
+Hello World New Document
+<img src="New_Document_Image.png" />
