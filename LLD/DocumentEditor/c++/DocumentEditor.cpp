@@ -130,13 +130,10 @@ public:
 class DocumentEditor {
 private:
     Document* doc;
-    // StorageManager* storageManager;
+    StorageManager* storageManager;
    
 public:
-     StorageManager* storageManager = new StorageManager();
-    DocumentEditor(Document* doc) : doc(doc) {
-       
-    }
+     DocumentEditor(Document* doc) : doc(doc), storageManager(new StorageManager()) {}
 
     void addStorage(StorageService* storage) {
             storageManager->addStorageService(storage);
