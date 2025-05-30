@@ -95,7 +95,7 @@ int main(){
     offRoadCar1->display();
 
     NormalCar * normalCar2 = new NormalCar(new NormalDrive(), new AdvancedDisplay());
-     cout <<"\n ----------------- Normal Car With Advanced Display -----------------\n" << endl;
+     cout <<"\n ----------------- Normal Car With Advanced Display -------------------\n" << endl;
     normalCar2->drive();
     normalCar2->display();
 
