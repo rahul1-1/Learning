@@ -94,8 +94,15 @@ int main(){
     offRoadCar1->drive();
     offRoadCar1->display();
 
+    NormalCar * normalCar2 = new NormalCar(new NormalDrive(), new AdvancedDisplay());
+     cout <<"\n ----------------- Normal Car With Advanced Display -----------------\n" << endl;
+    normalCar2->drive();
+    normalCar2->display();
+
+
     delete normalCar1;
     delete sportCar1;
     delete offRoadCar1;
+    delete normalCar2;
     return 0;
 }
