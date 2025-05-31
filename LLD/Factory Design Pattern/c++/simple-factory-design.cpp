@@ -56,7 +56,7 @@ int main (){
         pizza->prepare();
         delete pizza;
     }else{
-        cout<<choice<<"pizza is not available!"<<endl;
+        cout<<choice<<"pizza is not available!!"<<endl;
     }return 0;
     delete factory;
 }
