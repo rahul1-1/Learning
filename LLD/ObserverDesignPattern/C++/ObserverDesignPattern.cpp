@@ -77,7 +77,7 @@ int main() {
     Channel* channel = new Channel("CoderWorld");
 
     Subscriber* subs1 = new Subscriber("Ram", channel);
-    Subscriber* subs2 = new Subscriber("Syam", channel);
+    Subscriber* subs2 = new Subscriber("Alice", channel);
 
     channel->subscribe(subs1);
     channel->subscribe(subs2);
