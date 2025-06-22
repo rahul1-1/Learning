@@ -190,7 +190,6 @@ class NotificationEngine implements IObserver {
         this.notificationStrategies.add(ns);
     }
 
-    // Can have RemoveNotificationStrategy as well.
 
     public void update() {
         String notificationContent = notificationObservable.getNotificationContent();
