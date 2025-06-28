@@ -126,8 +126,28 @@ class DocumentEditor {
     public void saveDocument() {
         storageManager.saveDocument(doc);
     }
+
+    public void addCompositeElement(CompositeElement composite) {
+    doc.addElement(composite);
+}
 }
 
+class CompositeElement extends DocumentElement {
+    private List<DocumentElement> children = new ArrayList<>();
+
+    public void addChild(DocumentElement child) {
+        children.add(child);
+    }
+
+    @Override
+    public String render() {
+        StringBuilder sb = new StringBuilder();
+        for (DocumentElement child : children) {
+            sb.append(child.render()).append("\n");
+        }
+        return sb.toString();
+    }
+}
 
 public class DocumentEditorApp {
     public static void main(String[] args) {
@@ -156,16 +176,26 @@ public class DocumentEditorApp {
 
         editor1.addStorage(new FileStorageService());
 
+        editor1.saveDocument();
+
+        CompositeElement table = new CompositeElement();
+        CompositeElement row1 = new CompositeElement();
+        row1.addChild(new TextElement("Cell 1"));
+        row1.addChild(new TextElement("Cell 2"));
+        table.addChild(row1);
+        editor1.addCompositeElement(table);
+        
         editor1.addText("Hello World New Document");
         editor1.addText("Document Editor Example");
         editor1.addImage("New_Document_Image.png");
 
+        table.render();
         System.out.println("Document Content:\n" + editor1.renderDocument());
 
         editor1.removeElement(1);
 
         System.out.println("After Removal:\n" + editor1.renderDocument());
 
-        editor1.saveDocument();
+
     }
 }

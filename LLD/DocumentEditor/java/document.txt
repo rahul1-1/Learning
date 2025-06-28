@@ -6,3 +6,7 @@ Hello World New Document
 
 
 
+Hello World
+<img src="image.png" />
+
+
